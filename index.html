@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Philosophy Wiki</title>
+  <meta name="description" content="A personal wiki on the history of Western philosophy" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icons/icon-192.png" type="image/png" />
+  <link rel="stylesheet" href="./style.css" />
+  <!-- Markdown renderer -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<div id="shell">
+
+  <!-- Top bar -->
+  <header id="topbar">
+    <span id="site-title">Philosophy Wiki</span>
+    <div id="search-wrap">
+      <input
+        id="search"
+        type="search"
+        placeholder="Search entries…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div id="search-results"></div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <nav id="sidebar">
+    <h2>Philosophers</h2>
+    <ul id="entry-list"></ul>
+    <button id="btn-export-all" title="Export all entries as a single Word document">Export All DOCX</button>
+  </nav>
+
+  <!-- Main content -->
+  <main id="content">
+    <p class="state-msg">Loading…</p>
+  </main>
+
+</div>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

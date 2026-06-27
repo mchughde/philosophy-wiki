@@ -1,0 +1,16 @@
+# OS / editor cruft
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Local server output
+server.log
+
+# Local launcher (macOS-specific)
+Open Philosophy Wiki.command
+
+# Construction-side inputs / outputs — not part of the deployed site
+Source material/
+philosophy-wiki.docx
