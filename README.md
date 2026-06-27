@@ -19,9 +19,9 @@ Use the **+ New entry** button on the home page, or the **Edit** button on any e
 - Paste a direct image URL (from Wikimedia Commons: click the image, copy the URL from the address bar — it starts with `upload.wikimedia.org`)
 - Or save an image file into the `photos/` folder and type just the filename, e.g. `kant.jpg`
 
-## Exporting to PDF
+## Exporting to DOCX
 
-Click **Export PDF** in the top bar. All entries will be compiled into a single document in chronological order. In the print dialog, choose **Save as PDF**.
+Click **Export DOCX** in the top bar. All entries will be compiled into a single Word document in chronological order. (You can open it in Word and save as PDF if you need a PDF.)
 
 ## Files
 
