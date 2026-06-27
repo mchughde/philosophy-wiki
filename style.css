@@ -375,7 +375,6 @@ body {
   color: var(--text-muted);
   font-size: 0.9rem;
   line-height: 1.7;
-  max-width: 640px;
   margin-bottom: 2.5rem;
 }
 
@@ -464,7 +463,7 @@ article::after {
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.4rem;
 }
 
 .btn-new {

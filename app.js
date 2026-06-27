@@ -118,13 +118,11 @@ async function renderIndex() {
   content.innerHTML = `
     <div id="index-page">
       <div class="index-header">
-        <div>
-          <h1>Philosophy Wiki</h1>
-          <p class="subtitle"><em>A personal reference on the history of Western philosophy.</em></p>
-          <p class="intro">This wiki aims to provide concise entries on 100 significant philosophers from Ancient Greece &amp; Rome through to the 21st century. Coverage of the modern and contemporary periods leans towards the continental tradition — phenomenology, existentialism, critical theory, structuralism and its aftermath — while the earlier periods survey the full breadth of Western thought.</p>
-        </div>
+        <h1>Philosophy Wiki</h1>
         <button class="btn-new" id="btn-new-entry">+ New entry</button>
       </div>
+      <p class="subtitle"><em>A personal reference on the history of Western philosophy.</em></p>
+      <p class="intro">This wiki aims to provide concise entries on 100 significant philosophers from Ancient Greece &amp; Rome through to the 21st century. Coverage of the modern and contemporary periods leans towards the continental tradition — phenomenology, existentialism, critical theory, structuralism and its aftermath — while the earlier periods survey the full breadth of Western thought.</p>
       <div class="cover-triptych">
         <div class="cover-image">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg/1280px-%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg"
