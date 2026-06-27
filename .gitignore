@@ -8,8 +8,8 @@ __pycache__/
 # Local server output
 server.log
 
-# Local launcher (macOS-specific)
-Open Philosophy Wiki.command
+# Local launchers (macOS-specific)
+*.command
 
 # Construction-side inputs / outputs — not part of the deployed site
 Source material/
