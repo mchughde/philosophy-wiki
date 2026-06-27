@@ -83,13 +83,11 @@ function renderEntry(entry) {
     <article>
       ${photoHtml}
       <header class="entry-header">
-        <div class="entry-header-top">
-          <h1 class="entry-title">${entry.title}</h1>
-          <div class="entry-header-actions">
-            <button class="btn-edit" data-slug="${entry.slug}">Edit</button>
-            <button class="btn-export-entry" data-slug="${entry.slug}">Export DOCX</button>
-          </div>
+        <div class="entry-header-actions">
+          <button class="btn-edit" data-slug="${entry.slug}">Edit</button>
+          <button class="btn-export-entry" data-slug="${entry.slug}">Export DOCX</button>
         </div>
+        <h1 class="entry-title">${entry.title}</h1>
         <div class="entry-meta">
           <span class="entry-dates">${formatYear(entry.born)} – ${formatYear(entry.died)}</span>
           <span class="entry-tags">${tagsHtml}</span>
