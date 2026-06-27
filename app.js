@@ -120,8 +120,8 @@ async function renderIndex() {
       <div class="index-header">
         <div>
           <h1>Philosophy Wiki</h1>
-          <p class="subtitle">A personal reference on the history of Western philosophy.</p>
-          <p class="intro">This wiki aims to provide concise entries on 100 significant philosophers from across eight periods: Ancient Greece &amp; Rome; Medieval; Early Modern (16th–17th century); the 18th century; the 19th century; the Early 20th century; and the Mid-to-Late and Late 20th and 21st centuries. Coverage of the modern and contemporary periods leans towards the continental tradition — phenomenology, existentialism, critical theory, structuralism and its aftermath — while the earlier periods survey the full breadth of Western thought.</p>
+          <p class="subtitle"><em>A personal reference on the history of Western philosophy.</em></p>
+          <p class="intro">This wiki aims to provide concise entries on 100 significant philosophers from Ancient Greece &amp; Rome through to the 21st century. Coverage of the modern and contemporary periods leans towards the continental tradition — phenomenology, existentialism, critical theory, structuralism and its aftermath — while the earlier periods survey the full breadth of Western thought.</p>
         </div>
         <button class="btn-new" id="btn-new-entry">+ New entry</button>
       </div>
