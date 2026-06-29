@@ -26,7 +26,9 @@ Save a JPEG into the `photos/` folder named after the philosopher's slug, e.g. `
 
 ## Publishing
 
-Double-click **Publish Philosophy Wiki.command** — it stages, commits, and pushes all changes to GitHub. The live site updates within about a minute. (Claude can also commit and push for you.)
+When you add an entry using the philosopher-entry skill, Claude commits and pushes to GitHub automatically — you don't need to do anything extra.
+
+For manual changes (direct edits to `entries.js`, new photos, etc.), double-click **Publish Philosophy Wiki.command** to stage, commit, and push. Alternatively, ask Claude to commit and push for you. The live site updates within about a minute.
 
 ## Exporting
 
