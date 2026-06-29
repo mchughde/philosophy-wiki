@@ -1,0 +1,9 @@
+{
+  "name": "philosophy-wiki-export",
+  "version": "1.0.0",
+  "description": "Dependencies for the Philosophy Wiki docx export script",
+  "private": true,
+  "dependencies": {
+    "docx": "9.7.1"
+  }
+}

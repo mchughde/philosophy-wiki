@@ -14,7 +14,11 @@ server.log
 # Construction-side inputs / outputs — not part of the deployed site
 Source material/
 Philosophy Wiki.docx
+Philosophy_Wiki.docx
 philosopher-entry.skill
 
 # Local-only working notes (not part of the public site)
 CLAUDE.md
+
+# Export script dependencies (installed locally, not committed)
+scripts/node_modules/
