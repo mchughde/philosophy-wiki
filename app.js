@@ -96,22 +96,10 @@ async function renderIndex() {
       </div>
       <p class="subtitle"><em>A personal reference on the history of Western philosophy.</em></p>
       <p class="intro">This wiki aims to provide concise entries on 100 significant philosophers from Ancient Greece &amp; Rome through to the 21st century. Coverage of the modern and contemporary periods leans towards the continental tradition — phenomenology, existentialism, critical theory, structuralism and its aftermath — while the earlier periods survey the full breadth of Western thought.</p>
-      <div class="cover-triptych">
-        <div class="cover-image">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg/1280px-%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg"
-            alt="The School of Athens by Raphael" />
-          <span class="cover-caption">Raphael, <em>The School of Athens</em>, 1509–11</span>
-        </div>
-        <div class="cover-image">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/Rodin_TheThinker.jpg"
-            alt="The Thinker by Rodin" />
-          <span class="cover-caption">Rodin, <em>The Thinker</em>, 1902</span>
-        </div>
-        <div class="cover-image">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Rembrandt_-_Aristotle_with_a_Bust_of_Homer_-_Google_Art_Project.jpg"
-            alt="Aristotle with a Bust of Homer by Rembrandt" />
-          <span class="cover-caption">Rembrandt, <em>Aristotle with a Bust of Homer</em>, 1653</span>
-        </div>
+      <div class="cover-single">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg/1280px-%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg"
+          alt="The School of Athens by Raphael" />
+        <span class="cover-caption">Raphael, <em>The School of Athens</em>, 1509–11</span>
       </div>
     </div>
   `;

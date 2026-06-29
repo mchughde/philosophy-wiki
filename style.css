@@ -379,26 +379,17 @@ body {
   margin-bottom: 2.5rem;
 }
 
-/* ── Cover triptych ── */
+/* ── Cover image ── */
 
-.cover-triptych {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  margin-top: 2rem;
-}
-
-.cover-image {
+.cover-single {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 2rem;
 }
 
-.cover-image img {
+.cover-single img {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: center top;
   border-radius: 4px;
   display: block;
 }
