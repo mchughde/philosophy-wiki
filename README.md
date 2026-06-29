@@ -19,7 +19,7 @@ Entries live in `entries.js` (the `ENTRIES` array) and are written with Claude. 
 **Content conventions:**
 - Plain prose, with Markdown supported.
 - `[[Name]]` links to another entry, e.g. `[[Plato]]`.
-- `## Heading` for sections. Entries use three: **Biographical Details**, **Key Ideas**, **Major Works**.
+- `## Heading` for sections. Entries use four: **Biographical Details**, **Key Ideas**, **Major Works**, **Quotes**. Quotes are supplied by you and added separately — Claude does not generate them independently.
 
 **Photos:**
 - Use a direct image URL (from Wikimedia Commons — the URL starts with `upload.wikimedia.org`), **or**
