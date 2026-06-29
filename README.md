@@ -1,42 +1,57 @@
 # Philosophy Wiki
 
-A personal reference wiki on the history of Western philosophy.
+A personal reference wiki on the history of Western philosophy, published to GitHub Pages:
+**https://mchughde.github.io/philosophy-wiki/**
 
-## Starting the wiki
+It aims to cover 100 significant philosophers from Ancient Greece & Rome through to the 21st century.
 
-Double-click **Open Philosophy Wiki.command** in this folder. It starts the local server and opens the wiki in your browser. Terminal will flash briefly then close.
+## Viewing the wiki
+
+- **Live site:** the URL above (updates about a minute after publishing).
+- **Locally:** double-click **Open Philosophy Wiki.command** — it starts the local server and opens the wiki in your browser. The terminal window flashes briefly, then closes.
+
+The app is a read-only viewer: browse philosophers in the sidebar (grouped by period), search from the top bar, and follow `[[wikilinks]]` between entries. There are no New, Edit, or Export buttons in the app — those tasks are done outside the app with Claude (see below).
 
 ## Adding or editing entries
 
-Use the **+ New entry** button on the home page, or the **Edit** button on any entry page. Fill in the fields and hit Save. Everything is backed up to `entries.js` automatically.
+Entries live in `entries.js` (the `ENTRIES` array) and are written with Claude. Ask Claude to "draft an entry for [philosopher]"; it works only from the files in `Source material/[Philosopher]/`, writes the entry in the standard structure, and saves it into `entries.js`.
 
-**Content field tips:**
-- Write in plain prose — Markdown formatting is supported
-- Use `[[Name]]` to link to another entry, e.g. `[[Plato]]`
-- Use `## Heading` for section headings
+**Content conventions:**
+- Plain prose, with Markdown supported.
+- `[[Name]]` links to another entry, e.g. `[[Plato]]`.
+- `## Heading` for sections. Entries use three: **Biographical Details**, **Key Ideas**, **Major Works**.
 
 **Photos:**
-- Paste a direct image URL (from Wikimedia Commons: click the image, copy the URL from the address bar — it starts with `upload.wikimedia.org`)
-- Or save an image file into the `photos/` folder and type just the filename, e.g. `kant.jpg`
+- Use a direct image URL (from Wikimedia Commons — the URL starts with `upload.wikimedia.org`), **or**
+- Save an image into the `photos/` folder and set the entry's photo to just the filename, e.g. `kant.jpg`.
 
-## Exporting to DOCX
+## Publishing
 
-Click **Export DOCX** in the top bar. All entries will be compiled into a single Word document in chronological order. (You can open it in Word and save as PDF if you need a PDF.)
+Double-click **Publish Philosophy Wiki.command** — it stages, commits, and pushes all changes to GitHub. The live site updates within about a minute. (Claude can also commit and push for you.)
 
-## Files
+## Exporting
+
+Exporting is done outside the app with Claude, using `export_entry.py`, which compiles an entry into a 6×9 Word document from its `slug`. Open the result in Word and save as PDF if you need one.
+
+## Files (the deployed site)
 
 | File | Purpose |
 |------|---------|
-| `entries.js` | All entry content — auto-updated on every save |
-| `app.js` | App logic |
-| `db.js` | Local database |
+| `index.html` | Page shell |
+| `app.js` | Viewer logic — rendering, sidebar, search, wikilinks |
+| `entries.js` | All entry content (the `ENTRIES` array) |
 | `style.css` | Visual design |
-| `server.py` | Local server (handles auto-save) |
-| `photos/` | Local image files |
+| `db.js` | Offline cache (IndexedDB) for the installable app |
+| `sw.js` | Service worker — offline / PWA caching |
+| `manifest.json` | PWA manifest |
+| `icons/` | App icons |
+| `photos/` | Local portrait images |
+
+Supporting files, not part of the page itself: `server.py` (local dev server), `export_entry.py` (DOCX export), `philosophers-100.md` (planning list).
 
 ## Content workflow (with Claude)
 
-1. Say "draft an entry for [philosopher]" in Cowork
-2. Claude researches and writes the markdown
-3. Review and approve the content
-4. Open the wiki, click **+ New entry**, paste the content, save
+1. Ask Claude to "draft an entry for [philosopher]."
+2. Claude reads only the sources in `Source material/[Philosopher]/`, drafts the entry, runs its copyright and natural-prose checks, and fact-checks every claim against the sources.
+3. Claude saves it into `entries.js` and — with your go-ahead — publishes via git.
+4. The live site updates about a minute later.
