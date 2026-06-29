@@ -249,6 +249,7 @@ body {
   margin-bottom: 2.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--border);
+  display: flow-root;
 }
 
 .entry-title {
