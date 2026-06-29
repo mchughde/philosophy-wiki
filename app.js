@@ -95,7 +95,9 @@ async function renderIndex() {
         <h1>Philosophy Wiki</h1>
       </div>
       <p class="subtitle"><em>A personal reference on the history of Western philosophy.</em></p>
-      <p class="intro">This wiki aims to provide concise entries on 100 significant philosophers from Ancient Greece &amp; Rome through to the 21st century. Coverage of the modern and contemporary periods leans towards the continental tradition — phenomenology, existentialism, critical theory, structuralism and its aftermath — while the earlier periods survey the full breadth of Western thought.</p>
+      <p class="intro">One hundred entries, from Socrates to Martha Nussbaum — surveying the full sweep of Western thought from Ancient Greece and Rome through the medieval schools, the early moderns, the Enlightenment, and into the 20th and 21st centuries. Each entry covers biographical details, key ideas, and major works: enough to orient a reader new to a thinker, and a reliable reference for those returning to one.</p>
+      <p class="intro">The coverage is weighted towards the modern period, and from the 19th century onwards skews continental: Hegel, Marx, Nietzsche, and Husserl give way to existentialism, phenomenology, the Frankfurt School, and the post-structuralist generation. The analytic tradition appears at its founding moments but is not the primary focus.</p>
+      <p class="intro">Taken together, the hundred entries are intended as a substantive introduction to the history of Western philosophy — not exhaustive, but a sound foundation for further study.</p>
       <div class="cover-single">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg/1280px-%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg"
           alt="The School of Athens by Raphael" />
