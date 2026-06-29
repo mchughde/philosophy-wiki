@@ -57,6 +57,17 @@ function renderEntry(entry) {
        </figure>`
     : '';
 
+  const quotesHtml = (entry.quotes && entry.quotes.length)
+    ? `<section class="entry-quotes">
+        ${entry.quotes.map(q => `
+          <blockquote class="entry-quote">
+            <p>${q.text}</p>
+            <cite>${q.source}</cite>
+          </blockquote>
+        `).join('')}
+      </section>`
+    : '';
+
   content.innerHTML = `
     <article>
       ${photoHtml}
@@ -67,6 +78,7 @@ function renderEntry(entry) {
           <span class="entry-tags">${tagsHtml}</span>
         </div>
       </header>
+      ${quotesHtml}
       <div class="entry-body">${htmlBody}</div>
     </article>
   `;
@@ -291,6 +303,17 @@ async function exportEntryPDF(entry) {
   const body = marked.parse(parseWikilinks(entry.body));
   const tags = (entry.tags || []).join(' · ');
 
+  const printQuotesHtml = (entry.quotes && entry.quotes.length)
+    ? `<section class="print-quotes">
+        ${entry.quotes.map(q => `
+          <blockquote class="print-quote">
+            <p>${q.text}</p>
+            <cite>${q.source}</cite>
+          </blockquote>
+        `).join('')}
+      </section>`
+    : '';
+
   const entryHtml = `
     <article class="print-entry">
       ${photoHtml}
@@ -299,6 +322,7 @@ async function exportEntryPDF(entry) {
         <p class="print-dates">${formatYear(entry.born)} – ${formatYear(entry.died)}</p>
         <p class="print-tags">${tags}</p>
       </header>
+      ${printQuotesHtml}
       <div class="print-body">${body}</div>
     </article>
   `;
