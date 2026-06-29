@@ -22,8 +22,7 @@ Entries live in `entries.js` (the `ENTRIES` array) and are written with Claude. 
 - `## Heading` for sections. Entries use four: **Biographical Details**, **Key Ideas**, **Major Works**, **Quotes**. Quotes are supplied by you and added separately — Claude does not generate them independently.
 
 **Photos:**
-- Use a direct image URL (from Wikimedia Commons — the URL starts with `upload.wikimedia.org`), **or**
-- Save an image into the `photos/` folder and set the entry's photo to just the filename, e.g. `kant.jpg`.
+Save a JPEG into the `photos/` folder named after the philosopher's slug, e.g. `kant.jpg` for slug `kant`. The export script looks for this file automatically. If no photo is found the entry is still exported — just without an image.
 
 ## Publishing
 
@@ -31,7 +30,9 @@ Double-click **Publish Philosophy Wiki.command** — it stages, commits, and pus
 
 ## Exporting
 
-Exporting is done outside the app with Claude, using `export_entry.py`, which compiles an entry into a 6×9 Word document from its `slug`. Open the result in Word and save as PDF if you need one.
+Double-click **export.command** in Finder to generate `Philosophy_Wiki.docx` — a 6×9 formatted book containing all entries, with per-philosopher running headers, portrait photos, and mirror margins. The file is written to this folder and is not committed to git.
+
+Alternatively, ask Claude to "export the wiki" and it will run the same scripts and hand you the file directly.
 
 ## Files (the deployed site)
 
@@ -47,7 +48,7 @@ Exporting is done outside the app with Claude, using `export_entry.py`, which co
 | `icons/` | App icons |
 | `photos/` | Local portrait images |
 
-Supporting files, not part of the page itself: `server.py` (local dev server), `export_entry.py` (DOCX export), `philosophers-100.md` (planning list).
+Supporting files, not part of the page itself: `server.py` (local dev server), `export.command` / `export.sh` (DOCX export launchers), `scripts/` (export scripts and dependencies), `philosophers-100.md` (planning list).
 
 ## Content workflow (with Claude)
 
@@ -55,3 +56,5 @@ Supporting files, not part of the page itself: `server.py` (local dev server), `
 2. Claude reads only the sources in `Source material/[Philosopher]/`, drafts the entry, runs its copyright and natural-prose checks, and fact-checks every claim against the sources.
 3. Claude saves it into `entries.js` and — with your go-ahead — publishes via git.
 4. The live site updates about a minute later.
+5. Add a portrait JPEG to `photos/` named after the philosopher's slug.
+6. When you want a fresh Word export, double-click **export.command** (or ask Claude to "export the wiki").
