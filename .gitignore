@@ -13,7 +13,7 @@ server.log
 
 # Construction-side inputs / outputs — not part of the deployed site
 Source material/
-philosophy-wiki.docx
+Philosophy Wiki.docx
 philosopher-entry.skill
 
 # Local-only working notes (not part of the public site)
