@@ -2,7 +2,7 @@
 // Philosophy Wiki — App
 // ============================================================
 
-import { seedEntries, getEntry, getAllEntries, searchEntries, putEntry } from './db.js';
+import { seedEntries, getEntry, getAllEntries, searchEntries } from './db.js';
 import ENTRIES from './entries.js';
 
 // ── Period definitions ────────────────────────────────────────
@@ -34,28 +34,6 @@ function formatYear(n) {
   return n < 0 ? `${Math.abs(n)} BC` : `${n} AD`;
 }
 
-function slugify(title) {
-  return title.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-}
-
-// Parse a year string like "469 BC", "-469", "1724 AD", "1724" into a number
-function parseYear(str) {
-  if (!str || !str.toString().trim()) return null;
-  const s = str.toString().trim();
-  const bcMatch = s.match(/^(\d+)\s*BC$/i);
-  if (bcMatch) return -parseInt(bcMatch[1]);
-  const adMatch = s.match(/^(\d+)\s*(?:AD)?$/i);
-  if (adMatch) return parseInt(adMatch[1]);
-  const n = parseInt(s);
-  return isNaN(n) ? null : n;
-}
-
-function bumpVersion(v) {
-  if (!v) return '1.0';
-  const parts = v.split('.');
-  parts[parts.length - 1] = String(parseInt(parts[parts.length - 1]) + 1);
-  return parts.join('.');
-}
 
 // ── Render: entry ─────────────────────────────────────────────
 
@@ -83,10 +61,6 @@ function renderEntry(entry) {
     <article>
       ${photoHtml}
       <header class="entry-header">
-        <div class="entry-header-actions">
-          <button class="btn-edit" data-slug="${entry.slug}">Edit</button>
-          <button class="btn-export-entry" data-slug="${entry.slug}">Export DOCX</button>
-        </div>
         <h1 class="entry-title">${entry.title}</h1>
         <div class="entry-meta">
           <span class="entry-dates">${formatYear(entry.born)} – ${formatYear(entry.died)}</span>
@@ -119,7 +93,6 @@ async function renderIndex() {
     <div id="index-page">
       <div class="index-header">
         <h1>Philosophy Wiki</h1>
-        <button class="btn-new" id="btn-new-entry">+ New entry</button>
       </div>
       <p class="subtitle"><em>A personal reference on the history of Western philosophy.</em></p>
       <p class="intro">This wiki aims to provide concise entries on 100 significant philosophers from Ancient Greece &amp; Rome through to the 21st century. Coverage of the modern and contemporary periods leans towards the continental tradition — phenomenology, existentialism, critical theory, structuralism and its aftermath — while the earlier periods survey the full breadth of Western thought.</p>
@@ -143,175 +116,10 @@ async function renderIndex() {
     </div>
   `;
 
-  document.getElementById('btn-new-entry').addEventListener('click', () => {
-    location.hash = '#new';
-  });
-
   document.querySelectorAll('#entry-list a').forEach(a => a.classList.remove('active'));
   document.title = 'Philosophy Wiki';
 }
 
-// ── Render: editor ────────────────────────────────────────────
-
-async function renderEditor(slug) {
-  const content = document.getElementById('content');
-  const isNew = !slug;
-  const entry = slug ? await getEntry(slug) : null;
-
-  const yearHint = 'e.g. 469 BC or 1724';
-  const bornVal  = entry && entry.born != null
-    ? (entry.born < 0 ? Math.abs(entry.born) + ' BC' : entry.born + ' AD') : '';
-  const diedVal  = entry && entry.died != null
-    ? (entry.died < 0 ? Math.abs(entry.died) + ' BC' : entry.died + ' AD') : '';
-
-  content.innerHTML = `
-    <div class="editor-wrap">
-      <h2 class="editor-heading">${isNew ? 'New entry' : `Editing: ${entry ? entry.title : slug}`}</h2>
-
-      <div class="field-row">
-        <div class="field">
-          <label for="ed-title">Name</label>
-          <input id="ed-title" type="text" placeholder="e.g. Immanuel Kant"
-            value="${entry ? entry.title : ''}" />
-        </div>
-      </div>
-
-      <div class="field-row">
-        <div class="field">
-          <label for="ed-born">Born</label>
-          <input id="ed-born" type="text" placeholder="${yearHint}" value="${bornVal}" />
-        </div>
-        <div class="field">
-          <label for="ed-died">Died</label>
-          <input id="ed-died" type="text" placeholder="${yearHint}" value="${diedVal}" />
-        </div>
-      </div>
-
-      <div class="field-row">
-        <div class="field">
-          <label for="ed-tags">Tags <span class="field-hint">(comma-separated)</span></label>
-          <input id="ed-tags" type="text" placeholder="e.g. ancient, ethics, athens"
-            value="${entry ? (entry.tags || []).join(', ') : ''}" />
-        </div>
-        <div class="field">
-          <label for="ed-period">Period</label>
-          <select id="ed-period">
-            <option value="">— select —</option>
-            ${PERIODS.map(p => `<option value="${p}" ${entry && entry.period === p ? 'selected' : ''}>${p}</option>`).join('')}
-          </select>
-        </div>
-      </div>
-
-      <div class="field-row">
-        <div class="field">
-          <label for="ed-photo">Photo <span class="field-hint">(paste a URL, or a filename from your photos/ folder)</span></label>
-          <input id="ed-photo" type="text" placeholder="https://… or socrates.jpg"
-            value="${entry ? (entry.photo || '') : ''}" />
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="field-label-row">
-          <label for="ed-body">Content <span class="field-hint">(Markdown — use [[Name]] to link to other entries)</span></label>
-          <button class="btn-preview" id="ed-preview">Preview</button>
-        </div>
-        <textarea id="ed-body" rows="20" placeholder="Write the entry here…">${entry ? entry.body : ''}</textarea>
-        <div id="ed-preview-pane" class="preview-pane" style="display:none"></div>
-      </div>
-
-      <div class="editor-actions">
-        <button class="btn-save" id="ed-save">Save</button>
-        <button class="btn-cancel" id="ed-cancel">Cancel</button>
-      </div>
-
-      <div id="ed-error" class="editor-error" style="display:none"></div>
-    </div>
-  `;
-
-  // Preview toggle
-  let previewing = false;
-  document.getElementById('ed-preview').addEventListener('click', () => {
-    const textarea = document.getElementById('ed-body');
-    const pane     = document.getElementById('ed-preview-pane');
-    const btn      = document.getElementById('ed-preview');
-    previewing = !previewing;
-    if (previewing) {
-      pane.innerHTML = marked.parse(parseWikilinks(textarea.value));
-      pane.style.display = 'block';
-      textarea.style.display = 'none';
-      btn.textContent = 'Edit';
-    } else {
-      pane.style.display = 'none';
-      textarea.style.display = 'block';
-      btn.textContent = 'Preview';
-    }
-  });
-
-  document.getElementById('ed-cancel').addEventListener('click', () => {
-    history.back();
-  });
-
-  document.getElementById('ed-save').addEventListener('click', async () => {
-    const title = document.getElementById('ed-title').value.trim();
-    const body  = document.getElementById('ed-body').value.trim();
-    const errEl = document.getElementById('ed-error');
-
-    if (!title) { showError(errEl, 'Please enter a name.'); return; }
-    if (!body)  { showError(errEl, 'Please add some content.'); return; }
-
-    const born   = parseYear(document.getElementById('ed-born').value);
-    const died   = parseYear(document.getElementById('ed-died').value);
-    const tags   = document.getElementById('ed-tags').value
-      .split(',').map(t => t.trim()).filter(Boolean);
-    const photo  = document.getElementById('ed-photo').value.trim() || null;
-    const period = document.getElementById('ed-period').value || null;
-
-    const finalSlug = entry ? entry.slug : slugify(title);
-    if (!finalSlug) { showError(errEl, 'Could not generate a URL slug from that name.'); return; }
-
-    const saved = {
-      slug: finalSlug,
-      title,
-      born,
-      died,
-      tags,
-      period,
-      photo,
-      body,
-      version: bumpVersion(entry ? entry.version : null),
-    };
-
-    await putEntry(saved);
-    await syncEntriesToDisk();
-    await buildSidebar();
-    location.hash = `#entry:${finalSlug}`;
-  });
-
-  document.querySelectorAll('#entry-list a').forEach(a => a.classList.remove('active'));
-  document.title = isNew ? 'New entry — Philosophy Wiki' : `Edit ${entry ? entry.title : ''} — Philosophy Wiki`;
-}
-
-function showError(el, msg) {
-  el.textContent = msg;
-  el.style.display = 'block';
-}
-
-// ── Auto-sync entries.js via local server ─────────────────────
-// Silently posts all entries to server.py after every save.
-// No-ops gracefully if the server isn't running.
-
-async function syncEntriesToDisk() {
-  try {
-    const all = await getAllEntries();
-    await fetch('/save-entries', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(all),
-    });
-  } catch {
-    // Server unavailable — not a problem, IndexedDB still has the data
-  }
-}
 
 // ── Sidebar ───────────────────────────────────────────────────
 
@@ -370,11 +178,6 @@ async function route() {
       document.getElementById('content').innerHTML =
         `<p class="state-msg">Entry "<strong>${slug}</strong>" not found.</p>`;
     }
-  } else if (hash === '#new') {
-    renderEditor(null);
-  } else if (hash.startsWith('#edit:')) {
-    const slug = hash.slice(6);
-    renderEditor(slug);
   } else {
     renderIndex();
   }
@@ -448,24 +251,10 @@ function initSearch() {
   });
 }
 
-// ── Event delegation: Edit button & wikilinks ─────────────────
+// ── Event delegation: wikilinks ───────────────────────────────
 
 function initContentEvents() {
-  document.getElementById('content').addEventListener('click', async e => {
-    // Edit button
-    const editBtn = e.target.closest('.btn-edit');
-    if (editBtn) {
-      location.hash = `#edit:${editBtn.dataset.slug}`;
-      return;
-    }
-    // Export button
-    const exportBtn = e.target.closest('.btn-export-entry');
-    if (exportBtn) {
-      const entry = await getEntry(exportBtn.dataset.slug);
-      if (entry) exportEntryDOCX(entry);
-      return;
-    }
-    // Wikilinks
+  document.getElementById('content').addEventListener('click', e => {
     const a = e.target.closest('a');
     if (!a) return;
     const href = a.getAttribute('href');
@@ -474,59 +263,6 @@ function initContentEvents() {
       location.hash = href;
     }
   });
-}
-
-// ── DOCX Export ──────────────────────────────────────────────
-
-async function exportAllDOCX() {
-  const btn = document.getElementById('btn-export-all');
-  const original = btn ? btn.textContent : null;
-  if (btn) btn.textContent = 'Exporting…';
-  try {
-    const resp = await fetch('/export-all-docx', { method: 'POST' });
-    if (!resp.ok) {
-      const err = await resp.json().catch(() => ({ error: resp.statusText }));
-      alert('Export failed: ' + (err.error || resp.statusText));
-      return;
-    }
-    const blob = await resp.blob();
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href     = url;
-    a.download = 'philosophy-wiki.docx';
-    a.click();
-    URL.revokeObjectURL(url);
-  } finally {
-    if (btn && original) btn.textContent = original;
-  }
-}
-
-async function exportEntryDOCX(entry) {
-  const btn = document.querySelector(`.btn-export-entry[data-slug="${entry.slug}"]`);
-  const original = btn ? btn.textContent : null;
-  if (btn) btn.textContent = 'Exporting…';
-
-  try {
-    const resp = await fetch('/export-docx', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug: entry.slug })
-    });
-    if (!resp.ok) {
-      const err = await resp.json().catch(() => ({ error: resp.statusText }));
-      alert('Export failed: ' + (err.error || resp.statusText));
-      return;
-    }
-    const blob = await resp.blob();
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href     = url;
-    a.download = `${entry.slug}.docx`;
-    a.click();
-    URL.revokeObjectURL(url);
-  } finally {
-    if (btn && original) btn.textContent = original;
-  }
 }
 
 // ── PDF Export ───────────────────────────────────────────────
@@ -630,7 +366,6 @@ async function boot() {
   initSearch();
   initHomeLink();
   initContentEvents();
-  document.getElementById('btn-export-all').addEventListener('click', exportAllDOCX);
 
   window.addEventListener('hashchange', route);
   await route();
