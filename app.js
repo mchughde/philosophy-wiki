@@ -57,17 +57,6 @@ function renderEntry(entry) {
        </figure>`
     : '';
 
-  const quotesHtml = (entry.quotes && entry.quotes.length)
-    ? `<section class="entry-quotes">
-        ${entry.quotes.map(q => `
-          <blockquote class="entry-quote">
-            <p>${q.text}</p>
-            <cite>${q.source}</cite>
-          </blockquote>
-        `).join('')}
-      </section>`
-    : '';
-
   content.innerHTML = `
     <article>
       ${photoHtml}
@@ -78,7 +67,6 @@ function renderEntry(entry) {
           <span class="entry-tags">${tagsHtml}</span>
         </div>
       </header>
-      ${quotesHtml}
       <div class="entry-body">${htmlBody}</div>
     </article>
   `;
@@ -107,7 +95,7 @@ async function renderIndex() {
         <h1>Philosophy Wiki</h1>
       </div>
       <p class="subtitle"><em>A personal reference on the history of Western philosophy.</em></p>
-      <p class="intro">One hundred entries, from Socrates to Martha Nussbaum — surveying the full sweep of Western thought from Ancient Greece and Rome through the medieval schools, the early moderns, the Enlightenment, and into the 20th and 21st centuries. Each entry covers biographical details, key ideas, and major works: enough to orient a reader new to a thinker, and a reliable reference for those returning to one.</p>
+      <p class="intro">One hundred entries, from Socrates to Martha Nussbaum — surveying the full sweep of Western thought from Ancient Greece and Rome through the medieval schools, the early moderns, the Enlightenment, and into the 20th and 21st centuries. Each entry covers biographical details, key ideas, major works, and quotes: enough to orient a reader new to a thinker, and a reliable reference for those returning to one.</p>
       <p class="intro">The coverage is weighted towards the modern period, and from the 19th century onwards skews continental: Hegel, Marx, Nietzsche, and Husserl give way to existentialism, phenomenology, the Frankfurt School, and the post-structuralist generation. The analytic tradition appears at its founding moments but is not the primary focus.</p>
       <p class="intro">Taken together, the hundred entries are intended as a substantive introduction to the history of Western philosophy — not exhaustive, but a sound foundation for further study.</p>
       <div class="cover-single">
@@ -303,17 +291,6 @@ async function exportEntryPDF(entry) {
   const body = marked.parse(parseWikilinks(entry.body));
   const tags = (entry.tags || []).join(' · ');
 
-  const printQuotesHtml = (entry.quotes && entry.quotes.length)
-    ? `<section class="print-quotes">
-        ${entry.quotes.map(q => `
-          <blockquote class="print-quote">
-            <p>${q.text}</p>
-            <cite>${q.source}</cite>
-          </blockquote>
-        `).join('')}
-      </section>`
-    : '';
-
   const entryHtml = `
     <article class="print-entry">
       ${photoHtml}
@@ -322,7 +299,6 @@ async function exportEntryPDF(entry) {
         <p class="print-dates">${formatYear(entry.born)} – ${formatYear(entry.died)}</p>
         <p class="print-tags">${tags}</p>
       </header>
-      ${printQuotesHtml}
       <div class="print-body">${body}</div>
     </article>
   `;
