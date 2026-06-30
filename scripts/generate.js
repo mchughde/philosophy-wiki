@@ -82,6 +82,7 @@ function buildBody(body) {
   let buf      = [];
   let firstInSection = true;
   let isIntro  = true;
+  let inQuotes = false;
 
   const flush = () => {
     if (!buf.length) return;
@@ -89,7 +90,8 @@ function buildBody(body) {
     buf = [];
     if (!text) return;
     const isAttrib = /^\*—/.test(text);
-    const indent   = (!firstInSection && !isAttrib) ? { firstLine: 288 } : undefined;
+    // Quotes are always flush to the margin — never first-line indented.
+    const indent   = (!firstInSection && !isAttrib && !inQuotes) ? { firstLine: 288 } : undefined;
     result.push(new Paragraph({
       children: parseInline(text),
       spacing: { before: 0, after: isIntro ? 200 : 160 },
@@ -109,6 +111,7 @@ function buildBody(body) {
         spacing: { before: 360, after: 120 },
       }));
       firstInSection = true;
+      inQuotes = /^quotes$/i.test(h2[1].trim());
     } else if (!line.trim()) {
       flush();
     } else {
