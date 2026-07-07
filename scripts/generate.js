@@ -124,7 +124,7 @@ function buildBody(body) {
 
 // ── Build sections ────────────────────────────────────────────────────────────
 const sections = ENTRIES.map(entry => {
-  const fmt  = yr => Math.abs(yr) + (yr < 0 ? ' BC' : ' AD');
+  const fmt  = (yr, circa) => (circa ? 'c. ' : '') + Math.abs(yr) + (yr < 0 ? ' BC' : ' AD');
   const tags = entry.tags.map(t => t.toUpperCase()).join('  ·  ');
   const photo = loadPhoto(entry);
 
@@ -134,7 +134,7 @@ const sections = ENTRIES.map(entry => {
       spacing: { before: 0, after: 80 },
     }),
     new Paragraph({
-      children: [new TextRun({ text: fmt(entry.born) + ' – ' + fmt(entry.died),
+      children: [new TextRun({ text: fmt(entry.born, entry.circa) + ' – ' + fmt(entry.died, entry.circa),
                                font: 'Georgia', size: 18, color: '666666' })],
       spacing: { before: 0, after: 60 },
     }),
