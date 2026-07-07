@@ -64,7 +64,7 @@ function renderEntry(entry) {
       <header class="entry-header">
         <h1 class="entry-title">${entry.title}</h1>
         <div class="entry-meta">
-          <span class="entry-dates">${formatYear(entry.born, entry.circa)} – ${formatYear(entry.died, entry.circa)}</span>
+          <span class="entry-dates">${formatYear(entry.born, entry.circaBorn)} – ${formatYear(entry.died, entry.circaDied)}</span>
           <span class="entry-tags">${tagsHtml}</span>
         </div>
       </header>
@@ -297,7 +297,7 @@ async function exportEntryPDF(entry) {
       ${photoHtml}
       <header class="print-header">
         <h1 class="print-title">${entry.title}</h1>
-        <p class="print-dates">${formatYear(entry.born, entry.circa)} – ${formatYear(entry.died, entry.circa)}</p>
+        <p class="print-dates">${formatYear(entry.born, entry.circaBorn)} – ${formatYear(entry.died, entry.circaDied)}</p>
         <p class="print-tags">${tags}</p>
       </header>
       <div class="print-body">${body}</div>

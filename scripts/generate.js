@@ -134,7 +134,7 @@ const sections = ENTRIES.map(entry => {
       spacing: { before: 0, after: 80 },
     }),
     new Paragraph({
-      children: [new TextRun({ text: fmt(entry.born, entry.circa) + ' – ' + fmt(entry.died, entry.circa),
+      children: [new TextRun({ text: fmt(entry.born, entry.circaBorn) + ' – ' + fmt(entry.died, entry.circaDied),
                                font: 'Georgia', size: 18, color: '666666' })],
       spacing: { before: 0, after: 60 },
     }),
