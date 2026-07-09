@@ -56,6 +56,15 @@ function loadPhoto(entry) {
   for (const p of candidates) {
     if (fs.existsSync(p)) return fs.readFileSync(p);
   }
+  if (entry.photo && entry.photo.startsWith('http')) {
+    try {
+      const { execFileSync } = require('child_process');
+      const buf = execFileSync('curl', ['-sL', '--fail', entry.photo], { maxBuffer: 1024 * 1024 * 100 });
+      if (buf && buf.length) return buf;
+    } catch (e) {
+      console.warn('  ⚠ Failed to fetch photo URL for ' + entry.title + ': ' + e.message);
+    }
+  }
   console.warn('  ⚠ No photo found for ' + entry.title + ' — skipping image');
   return null;
 }
