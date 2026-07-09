@@ -22,7 +22,9 @@ Entries live in `entries.js` (the `ENTRIES` array) and are written with Claude. 
 - `## Heading` for sections. Entries use four: **Biographical Details**, **Key Ideas**, **Major Works**, **Quotes**. Quotes are supplied by you and added separately — Claude does not generate them independently.
 
 **Photos:**
-Save a JPEG into the `photos/` folder named after the philosopher's slug, e.g. `kant.jpg` for slug `kant`. The export script looks for this file automatically. If no photo is found the entry is still exported — just without an image.
+Give Claude an image URL (e.g. a Wikimedia Commons page) — this is the default. Claude sets the entry's `photo` field to that full URL. Both the live site and the Word export fetch the image from the URL directly, so nothing needs to be saved into this folder.
+
+Only if a URL isn't available or doesn't work, save a JPEG into the `photos/` folder named after the philosopher's slug, e.g. `kant.jpg` for slug `kant`, and set `photo` to just that filename. If no photo is found by either route, the entry is still exported — just without an image.
 
 ## Publishing
 
@@ -48,7 +50,7 @@ Alternatively, ask Claude to "export the wiki" and it will run the same scripts 
 | `sw.js` | Service worker — offline / PWA caching |
 | `manifest.json` | PWA manifest |
 | `icons/` | App icons |
-| `photos/` | Local portrait images |
+| `photos/` | Local portrait images (fallback when a photo URL isn't available) |
 
 Supporting files, not part of the page itself: `server.py` (local dev server), `export.command` / `export.sh` (DOCX export launchers), `scripts/` (export scripts and dependencies), `philosophers-100.md` (planning list).
 
@@ -58,5 +60,5 @@ Supporting files, not part of the page itself: `server.py` (local dev server), `
 2. Claude reads only the sources in `Source material/[Philosopher]/`, drafts the entry, runs its copyright and natural-prose checks, and fact-checks every claim against the sources.
 3. Claude saves it into `entries.js` and — with your go-ahead — publishes via git.
 4. The live site updates about a minute later.
-5. Add a portrait JPEG to `photos/` named after the philosopher's slug.
+5. Give Claude an image URL for the portrait (or, if none is available, add a JPEG to `photos/` named after the philosopher's slug).
 6. When you want a fresh Word export, double-click **export.command** (or ask Claude to "export the wiki").
