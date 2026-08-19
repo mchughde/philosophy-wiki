@@ -229,6 +229,8 @@ const ENTRIES = [
     "title": "Boethius",
     "born": 480,
     "died": 524,
+    "circaBorn": true,
+    "circaDied": true,
     "tags": [
       "medieval",
       "logic",
