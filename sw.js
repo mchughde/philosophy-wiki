@@ -1,4 +1,4 @@
-const CACHE_NAME = 'philwiki-v55';
+const CACHE_NAME = 'philwiki-v57';
 
 const PRECACHE = [
   './',
@@ -10,7 +10,7 @@ const PRECACHE = [
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  'https://cdn.jsdelivr.net/npm/marked/marked.min.js',
+  'https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js',
 ];
 
 self.addEventListener('install', event => {
